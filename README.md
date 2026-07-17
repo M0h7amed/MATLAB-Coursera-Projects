@@ -42,7 +42,7 @@ Each project directory contains an `assets/` folder. Inside, you will find high-
 ---
 
 ## 👤 About the Author
-**[Mohamed Nabil Ali]**
+**Mohamed Nabil Ali**
 *Undergraduate Mechatronics and Robotics Engineering Student at Ain Shams University*
 
 Feel free to explore the code, and reach out on [LinkedIn](https://www.linkedin.com/in/mo7amed-nabil/) if you'd like to discuss DSP, computer vision, or engineering simulations!
