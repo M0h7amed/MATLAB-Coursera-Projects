@@ -6,8 +6,7 @@ This course was provided by **Vanderbilt University** and serves as Course 1 of 
 
 These projects showcase practical applications of MATLAB in digital signal processing, mathematical optimization, and computer vision—demonstrating core analytical and algorithmic skills essential for mechatronics and robotics engineering.
 
-🎓 **[View My Official Completion Certificate Here](./Vanderbilt_MATLAB_Certificate.pdf)** 
-*(Note: If you saved your certificate as a .png or under a different name, make sure to update the link above to match it perfectly!)*
+
 
 ---
 
