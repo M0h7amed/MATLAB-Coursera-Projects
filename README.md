@@ -1,6 +1,7 @@
 # 🚀 MATLAB Engineering Portfolio: Signal, Matrix, and Image Processing
 
-Welcome to my MATLAB portfolio! This repository contains a curated collection of technical projects completed as part of the **[Insert Exact Coursera Course Name Here]** course on Coursera. 
+Welcome to my MATLAB portfolio! This repository contains a curated collection of technical projects completed as part of the **Introduction to Programming with MATLAB
+by Vanderbilt University** course on Coursera. 
 
 These projects showcase practical applications of MATLAB in digital signal processing, mathematical optimization, and computer vision—demonstrating core analytical and algorithmic skills essential for mechatronics and robotics engineering.
 
