@@ -1,0 +1,19 @@
+function o=echo_gen(y, fs, delay, amp)
+%% ECHO 
+% (fs) sampling rate : number of rows in 1 second
+% (delay) : delay time needed
+
+r=round(delay*fs);
+d=zeros(r,1); 
+
+% Pad vectors to align signals in time
+p_y = [y; d];
+p_echo = [d; y * amp];
+    
+% Peak amplitude checking & normalization
+m=max(abs(o1));
+if m>1
+  o=(p_y+p_echo)/m;
+else
+  o= p_y+p_echo ;
+end
