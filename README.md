@@ -8,22 +8,22 @@ This project implements a core DSP function, `echo_gen`, which takes an input au
 The implementation handles discrete signal padding, offset calculations based on sampling frequencies, and includes an optimization layer to scale the final mixed signal if its magnitude exceeds standard audio bounds ($[-1, 1]$).
 
 ### Key Engineering Features
-* **Time-to-Sample Vector Mapping:** Computes exact sample delays from continuous time parameters using discrete sampling rates ($f_s$).
+* **Time-to-Sample Vector Mapping:** Computes exact sample delays from continuous time parameters using discrete sampling rates ($fs$).
 * **Signal Zero-Padding:** Dynamically extends audio vectors to accommodate delayed signals without data loss.
-* **Peak Amplitude Normalization:** Implements clipping protection by dynamically scaling the unified audio matrix relative to its absolute peak value ($\text{max}(|O_1|)$).
+* **Peak Amplitude Normalization:** Implements clipping protection by dynamically scaling the unified audio matrix relative to its absolute peak value ($\text{max}(|\text{echo}|)$).
 
 ---
 
 ## ⚙️ How It Works (Mathematical Approach)
 
-Given an input signal $y[n]$, a sampling frequency $Fs$, a time delay $\Delta t$, and an amplification factor $\alpha$:
+Given an input signal $y[n]$, a sampling frequency $fs$, a time delay $\Delta t$, and an amplification factor $\alpha$:
 
 1. **Sample Delay Calculation:** 
-   $$r = \text{round}(\Delta t \cdot Fs)$$
+   $$r = \text{round}(\Delta t \cdot fs)$$
 2. **Signal Mixing:** The original signal is zero-padded at the end, and the echo signal is zero-padded at the beginning by $r$ samples to align them perfectly in time:
-   $$O_1 = y_{\text{padded}} + \alpha \cdot y_{\text{delayed}}$$
-3. **Clipping Prevention:** If $\max(|O_1|) > 1$, the signal is normalized:
-   $$O = \frac{O_1}{\max(|O_1|)}$$
+   $$\text{echo} = y_{\text{padded}} + \alpha \cdot y_{\text{delayed}}$$
+3. **Clipping Prevention:** If $\max(|\text{echo}|) > 1$, the final output $oP$ is normalized:
+   $$oP = \frac{\text{echo}}{\max(|\text{echo}|)}$$
 
 ---
 
@@ -31,23 +31,26 @@ Given an input signal $y[n]$, a sampling frequency $Fs$, a time delay $\Delta t$
 
 ### 1. The Core Function: `echo_gen.m`
 ```matlab
-function o = echo_gen(y, fs, delay, amp)
-    dt = 1/fs;
-    t = 0:dt:dt*(length(y)-1);
-    r = round(delay*fs);
-    d = zeros(r,1);
+function oP=echo_gen(y, fs, delay, amp)
+    %% ECHO GENERATION FUNCTION
+    % (y) sound data
+    % (fs) sampling rate : number of rows in 1 second
+    % (delay) : delay time needed
+    
+    r=round(delay*fs);
+    d=zeros(r,1);
     
     % Pad vectors to align signals in time
     p_y = [y; d];
     p_echo = [d; y * amp];
     
-    o1 = p_y + p_echo;
+    echo=p_y+p_echo; 
     
     % Peak amplitude checking & normalization
-    m = max(abs(o1));
-    if m > 1
-        o = o1 / m;
+    m=max(abs(echo));
+    if m>1
+        oP=(echo)/m;
     else
-        o = o1;
+        oP= echo ;
     end
 end
